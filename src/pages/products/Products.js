@@ -1,39 +1,54 @@
 import { useState } from 'react';
-import productsData from '../../products.json';
+// import { debounce } from 'lodash';
 
-export const ProductItem = ({ product }) => {
-  return (
-    <div>
-      <h4>
-        {product.name}, ღირებულება: {product.price}
-      </h4>
-      <h6>
-        {product.inStock ? 'მარაგშია' : 'არ არის მარაგში'}, კატეგორია: {product.category}
-      </h6>
-    </div>
-  );
-};
+import { ProductItem } from './ProductIitem';
+import { Button, Textinput } from '../../atoms';
+import productsData from '../../products.json';
 
 export const Products = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
-  // const renderProducts = () => {
-  //   const rows = new Set(productsData.map((product) => product.category));
-  //   return rows;
+  const [filterTerm, setFilterTerm] = useState('');
+  // const filterCategory = () => {
+  //   const uniqueCat = new Set(productsData.map((product) => product.category));
+  //   return uniqueCat;
+  // }
   const renderProducts = () => {
     let data = productsData.slice();
     if (inStockOnly) {
-      data = productsData.filter((item) => item.inStock);
+      data = data.filter((item) => item.inStock);
     }
+
+    if (filterTerm && filterTerm.length > 2) {
+      data = data.filter((el) => el.name.includes(filterTerm));
+    }
+
     return data.map((item, index) => {
       return <ProductItem product={item} key={index} />;
     });
   };
+
+  const handleFilterChange = ({ target }) => {
+    setFilterTerm(target.value);
+  };
+
   return (
     <div className="row shadow my-3 p3">
       <h3>Products</h3>
-      <button className="btn btn-outline-primary" onClick={() => setInStockOnly(!inStockOnly)}>
-        მარაგშია
-      </button>
+      <form>
+        <h4>Filter - {filterTerm}</h4>
+        <div className="mb-3 row">
+          <div className="col-8">
+            <Textinput value={filterTerm} onChange={handleFilterChange} />
+          </div>
+          <div className="col-4">
+            <Button
+              className="btn btn-outline-primary"
+              onClick={() => setInStockOnly(!inStockOnly)}
+              text={inStockOnly ? 'სრული პროდუქცია' : 'მარაგშია'}
+            />
+          </div>
+        </div>
+      </form>
       <hr />
       {renderProducts()}
     </div>
