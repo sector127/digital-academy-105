@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ProductItem } from './ProductIitem';
 import { Button, Textinput } from '../../atoms';
 import productsData from '../../products.json';
+import { Collapsible } from '../../components/collapsible';
 
 export const Products = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -32,25 +33,27 @@ export const Products = () => {
   };
 
   return (
-    <div className="row shadow my-3 p3">
+    <div className="row shadow my-3 p-3">
       <h3>Products</h3>
       <form>
-        <h4>Filter - {filterTerm}</h4>
         <div className="mb-3 row">
           <div className="col-8">
-            <Textinput value={filterTerm} onChange={handleFilterChange} />
+            <Textinput value={filterTerm} onChange={handleFilterChange} placeholder="ძებნა..." />
           </div>
           <div className="col-4">
             <Button
               className="btn btn-outline-primary"
               onClick={() => setInStockOnly(!inStockOnly)}
-              text={inStockOnly ? 'სრული პროდუქცია' : 'მარაგშია'}
-            />
+            >
+              {inStockOnly ? '✅ სრული პროდუქცია' : '🚀 მარაგშია'}
+            </Button>
           </div>
         </div>
       </form>
       <hr />
-      {renderProducts()}
+      <Collapsible closedTitle="მაჩვენე პროდუქცია" openedTitle="დამალე პროდუქცია">
+        {renderProducts()}
+      </Collapsible>
     </div>
   );
 };

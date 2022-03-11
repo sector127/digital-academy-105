@@ -2,49 +2,49 @@
   {
     "category": "ხილიეულობა",
     "name": "ვაშლი",
-    "price": "1💲",
+    "price": "1$",
     "inStock": true
   },
   {
     "category": "ხილიეულობა",
     "name": "ვაშლი 1",
-    "price": "1,5💲",
+    "price": "1,5$",
     "inStock": true
   },
   {
     "category": "ხილიეულობა",
     "name": "ქლიავი",
-    "price": "3,4💲",
+    "price": "3,4$",
     "inStock": false
   },
   {
     "category": "ხილიეულობა",
     "name": "ქლიავი 2",
-    "price": "5💲",
+    "price": "5$",
     "inStock": false
   },
   {
     "category": "ბოსტნეული",
     "name": "პომიდორი",
-    "price": "3💲",
+    "price": "3$",
     "inStock": true
   },
   {
     "category": "ბოსტნეული",
     "name": "პომიდორი1",
-    "price": "3,5💲",
+    "price": "3,5$",
     "inStock": true
   },
   {
     "category": "ბოსტნეული",
     "name": "პომიდორი2",
-    "price": "5💲",
+    "price": "5$",
     "inStock": true
   },
   {
     "category": "ბოსტნეული",
     "name": "კომბოსტო",
-    "price": "2💲",
+    "price": "2$",
     "inStock": false
   }
 ]

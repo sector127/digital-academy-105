@@ -1,14 +1,14 @@
-export const Textinput = ({ value, onChange }) => {
+export const Textinput = ({ value, onChange, placeholder }) => {
   const id = Math.random().toString();
   return (
     <div className="input-group mb-3">
       <span className="input-group-text" id={id}>
-        ძებნა
+        ❔
       </span>
       <input
         type="text"
         className="form-control"
-        placeholder="Username"
+        placeholder={placeholder}
         id={id}
         value={value}
         onChange={onChange}
