@@ -1,8 +1,8 @@
 .collapsible-content {
-  height: 0%;
-  transition: height 500ms ease-in;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
 }
 
 .collapsible-content.opened {
-  height: 100%;
+  opacity: 1;
 }

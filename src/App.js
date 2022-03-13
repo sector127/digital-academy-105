@@ -5,14 +5,17 @@ import { Layout } from './components/layout';
 import { Products } from './pages/products';
 
 import './App.css';
+import { CartProvider } from './providers/CartProvider';
 
 function App() {
   return (
-    <Layout className="App" size="default">
-      <Header />
-      <Products />
-      <Footer />
-    </Layout>
+    <CartProvider>
+      <Layout className="App" size="default">
+        <Header />
+        <Products />
+        <Footer />
+      </Layout>
+    </CartProvider>
   );
 }
 

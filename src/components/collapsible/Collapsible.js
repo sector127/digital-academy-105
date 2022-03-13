@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './collapsible.css';
 
-export const Collapsible = ({ closedTitle, openedTitle, isOpen = true, children, className }) => {
+export const Collapsible = ({ closedTitle, openedTitle, isOpen = false, children, className }) => {
   const [opened, setOpened] = useState(isOpen);
   return (
     <div className={`row box shadow p-3 my-3 ${className}`}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import { debounce } from 'lodash';
 
-import { ProductItem } from './ProductIitem';
+import { ProductItem } from './ProductItem';
 import { Button, Textinput } from '../../atoms';
 import productsData from '../../products.json';
 import { Collapsible } from '../../components/collapsible';
@@ -52,7 +52,7 @@ export const Products = () => {
       </form>
       <hr />
       <Collapsible closedTitle="მაჩვენე პროდუქცია" openedTitle="დამალე პროდუქცია">
-        {renderProducts()}
+        <div className="d-flex flex-wrap justify-content-between">{renderProducts()}</div>
       </Collapsible>
     </div>
   );
