@@ -1,4 +1,5 @@
 export { Button } from './Button';
-export { Textinput } from './Textinput';
+export { TextInput } from './TextInput';
 export { Alert } from './Alert';
-// export { Form } from './Form';
+export { Loader } from './Loader';
+export { Form } from './Form';

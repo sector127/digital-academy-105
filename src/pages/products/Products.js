@@ -1,26 +1,47 @@
-import { useState } from 'react';
-// import { debounce } from 'lodash';
+import { useEffect, useState } from 'react';
+// import debounce from 'lodash/debounce';
 
 import { ProductItem } from './ProductItem';
-import { Button, Textinput } from '../../atoms';
-import productsData from '../../products.json';
+import { Button, TextInput, Form } from '../../atoms';
 import { Collapsible } from '../../components/collapsible';
+import { useLocalStorage, useDebounce } from '../../hooks';
+
+import productsData from '../../products.json';
 
 export const Products = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [filterTerm, setFilterTerm] = useState('');
-  // const filterCategory = () => {
-  //   const uniqueCat = new Set(productsData.map((product) => product.category));
-  //   return uniqueCat;
-  // }
-  const renderProducts = () => {
-    let data = productsData.slice();
-    if (inStockOnly) {
-      data = data.filter((item) => item.inStock);
-    }
+  const [result, setResult] = useState(productsData.slice());
+  const [filterTerm, setFilterTerm] = useLocalStorage('super-app:filter-term', '');
+  const pausedSearch = useDebounce(filterTerm, 600);
 
-    if (filterTerm && filterTerm.length > 2) {
-      data = data.filter((el) => el.name.includes(filterTerm));
+  // TODO grouping by the category
+  //   const renderProducts = () => {
+  //       const rows = [];
+  //       let lastCategory = null;
+
+  //       productsData.forEach(product => {
+  //           if( product.category !== lastCategory ) {
+
+  //           }
+  //       })
+  //   }
+
+  useEffect(() => {
+    if (pausedSearch) {
+      const data = productsData.filter((el) =>
+        el.name.toLowerCase().includes(pausedSearch.toLowerCase())
+      );
+      setResult(data);
+    } else {
+      setResult(productsData.slice());
+    }
+  }, [pausedSearch]);
+
+  const renderProducts = () => {
+    console.log('__Products_RENDERING__');
+    let data = result.slice();
+    if (inStockOnly) {
+      data = result.filter((item) => item.stock);
     }
 
     return data.map((item, index) => {
@@ -35,21 +56,22 @@ export const Products = () => {
   return (
     <div className="row shadow my-3 p-3">
       <h3>Products</h3>
-      <form>
+      <Form>
         <div className="mb-3 row">
           <div className="col-8">
-            <Textinput value={filterTerm} onChange={handleFilterChange} placeholder="ძებნა..." />
+            <TextInput value={filterTerm} onChange={handleFilterChange} placeholder="ძიება..." />
           </div>
           <div className="col-4">
             <Button
               className="btn btn-outline-primary"
+              type="button"
               onClick={() => setInStockOnly(!inStockOnly)}
             >
-              {inStockOnly ? '✅ სრული პროდუქცია' : '🚀 მარაგშია'}
+              {inStockOnly ? '✅ მაჩვენე სრული პროდუქცია' : '🚀 მაჩვენე მარაგში მყოფი პროდუქცია'}
             </Button>
           </div>
         </div>
-      </form>
+      </Form>
       <hr />
       <Collapsible closedTitle="მაჩვენე პროდუქცია" openedTitle="დამალე პროდუქცია">
         <div className="d-flex flex-wrap justify-content-between">{renderProducts()}</div>

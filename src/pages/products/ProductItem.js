@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { useCart } from '../../providers/CartProvider';
 import { Alert, Button } from '../../atoms';
 
@@ -56,4 +58,8 @@ export const ProductItem = ({ product }) => {
       </div>
     </div>
   );
+};
+
+ProductItem.propTypes = {
+  product: PropTypes.object,
 };

@@ -1,16 +1,31 @@
 import { useEffect } from 'react';
+
 import { ProductTable } from '../../components/table';
+import { Loader } from '../../atoms';
+import { useRequireAuth } from '../../hooks';
 
-import productsData from '../../products.json';
-
-export const ShoppingCart = (props) => {
+export const ShoppingCart = () => {
+  const auth = useRequireAuth();
+  // Component first Render - once
   useEffect(() => {
-    console.log('SHOPPING CART');
-  });
+    console.log('AJAX Request, started');
+    const timerId = setTimeout(() => {
+      console.log('AJAX Request, finished');
+    }, 3000);
+
+    return () => {
+      // cleanup function
+      clearTimeout(timerId);
+    };
+  }, []);
+
+  if (!auth) {
+    return <Loader />;
+  }
 
   return (
     <div className="row">
-      <h2>Shopping cart 🛒</h2>
+      <h2>Shopping Cart🛒</h2>
       <div className="col-12">
         <ProductTable />
       </div>

@@ -1,20 +1,16 @@
-import { Routes } from './Routes';
-import { Header } from './components/header';
-import { Footer } from './components/footer';
-import { Layout } from './components/layout';
-
-import './App.css';
 import { CartProvider } from './providers/CartProvider';
+import { AuthProvider } from './providers/AuthProvider';
+import { Routes } from './Routes';
+import './App.css';
+// Tree Shaking
 
 function App() {
   return (
-    <CartProvider>
-      <Layout className="App" size="default">
-        <Header />
+    <AuthProvider>
+      <CartProvider>
         <Routes />
-        <Footer />
-      </Layout>
-    </CartProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
