@@ -1,18 +1,17 @@
 import { createContext, useContext } from 'react';
 import { useLocalStorage } from '../../hooks';
 
-export const CartContext = createContext({
+const initialState = {
   total: 0,
   items: {},
-});
+};
+
+export const CartContext = createContext(initialState);
 
 CartContext.displayName = 'CartContext';
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useLocalStorage('super-app:shopping-cart', {
-    total: 0,
-    items: {},
-  });
+  const [cart, setCart] = useLocalStorage('super-app:shopping-cart', initialState);
 
   const addNewItem = (product) => {
     setCart((prev) => {
@@ -71,12 +70,17 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const resetBacket = () => {
+    setCart(initialState);
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
         addNewItem,
         removeItem,
+        resetBacket,
       }}
     >
       {children}

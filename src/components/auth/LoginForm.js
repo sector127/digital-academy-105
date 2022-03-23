@@ -22,14 +22,14 @@ export const LoginForm = () => {
       <h2>Sign In</h2>
       <hr />
 
-      <div className="col-7 m-auto">
+      <div className="col-5 m-auto">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
           </label>
           <input
             type="email"
-            className="form-control"
+            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
             id="email"
             {...register('email', {
               required: true,
@@ -47,7 +47,7 @@ export const LoginForm = () => {
           </label>
           <input
             type="password"
-            className="form-control"
+            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
             id="password"
             {...register('password', {
               required: true,
@@ -61,7 +61,7 @@ export const LoginForm = () => {
         </div>
 
         <Button type="submit" className="btn btn-primary">
-          Submit
+          Login
         </Button>
       </div>
     </Form>
