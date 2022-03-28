@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-
 import { Form, Button } from '../../atoms';
 
 import { useAuthProvider } from '../../providers/AuthProvider';
@@ -8,14 +7,17 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: 'all' });
   const { login } = useAuthProvider();
 
   const onSubmit = (loginData) => {
     console.log('__loginData__', loginData);
     login(loginData);
   };
+
+  console.log('errors', errors);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -29,15 +31,21 @@ export const LoginForm = () => {
           </label>
           <input
             type="email"
-            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            className={`form-control ${
+              errors.email ? 'is-invalid' : watch('email') ? 'is-valid' : ''
+            }`}
             id="email"
             {...register('email', {
               required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
             })}
           />
           {errors.email && (
             <div id="emailHelp" className="form-text text-danger">
-              Email is required
+              {errors.email.message}
             </div>
           )}
         </div>
@@ -47,15 +55,18 @@ export const LoginForm = () => {
           </label>
           <input
             type="password"
-            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+            className={`form-control ${
+              errors.password ? 'is-invalid' : watch('password') ? 'is-valid' : ''
+            }`}
             id="password"
             {...register('password', {
               required: true,
+              validate: (value) => value.length > 5,
             })}
           />
           {errors.password && (
             <div id="passwordHelp" className="form-text text-danger">
-              Password is required
+              Invalid Password
             </div>
           )}
         </div>

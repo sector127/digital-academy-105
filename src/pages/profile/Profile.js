@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 
+import { Task } from '../../components/Task';
+
 export const Profile = ({ title }) => {
   return (
     <div className="row p2">
-      <h2>Pofile Page</h2>
+      <Task />
       <h3>{title}</h3>
     </div>
   );
 };
 
 Profile.propTypes = {
-  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
